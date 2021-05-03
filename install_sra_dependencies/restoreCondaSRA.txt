@@ -1,0 +1,20 @@
+##################################
+##### RESTORE CONDA ENV IVDP #####
+#################################
+
+##### 1. Create YML files
+
+conda activate sra
+conda env export > sra.yml
+conda env export --from-history > sra_fh.yml
+conda deactivate
+
+##### 2. Restore SRA from .yml
+
+conda env create -f sra.yml
+
+##### 3. Restore SRA from _fh.yml (if step 2 didn't work)
+
+conda env create -f sra_fh.yml
+
+

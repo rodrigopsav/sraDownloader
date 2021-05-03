@@ -1,0 +1,23 @@
+##### CONFIGURE SRATollkit
+
+vdb-config -i
+
+- Press M
+  Check Enable Remote Access
+
+- Press C
+  Uncheck Enable local file-caching
+  If there is any problem during prefetch or fasterq-dump, increase the RAM used to 200 MB
+- Press A
+  Uncheck all the boxes
+
+-Press G
+  Uncheck all the boxes
+
+-Press N
+  Uncheck all the boxes
+
+-Press T
+  Select current directory
+  
+- save and exit

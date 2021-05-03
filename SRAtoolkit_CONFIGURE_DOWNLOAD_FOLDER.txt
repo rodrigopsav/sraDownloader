@@ -1,0 +1,11 @@
+##### SRAtoolkit: CONFIGURE DOWNLOAD FOLDER #####
+
+The examples used are public available at [NCBI SRA sequence database](https://www.ncbi.nlm.nih.gov/sra). There are 4 single-end RNA-seq samples (Run accessions SRR042167, SRR042168, SRR042169, and SRR042170) and 4 paired-end whole genome sequence (WGS) samples (Run accessions ERR035727, ERR035728, SRR4003107, and SRR4001708). \
+To download the sra files and convert them to fastq format, you must to install [SRAtoolkit](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software). For further information, you can access the [manual](https://www.ncbi.nlm.nih.gov/books/NBK158900/)
+First, install sratoolkit. After that, it is necessary to configure sratoolkit before start using it following the steps:
+- run the command line: vdb-config -i
+- Press C and uncheck "enable local file-caching"
+- Press T and select "current directory"
+- Press s to save the changes
+- Press x to exit
+

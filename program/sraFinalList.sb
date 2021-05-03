@@ -1,0 +1,44 @@
+#!/bin/bash
+
+##########################################################
+########### SBATCH Lines for Resource Request ############
+##########################################################
+
+# Wall time (e.g. "minutes", "hours:minutes:seconds", "days-hours", "days-hours:minutes"): (same as -t)
+#SBATCH --time=03:59:00
+#
+# Number of nodes needed: could be an exact number or a range of nodes (same as -N)
+#SBATCH --nodes=1
+#
+# Processors per task: number of CPUs (or cores) per task (same as -c)
+#SBATCH --cpus-per-task=1
+#
+# Tasks per node:
+#SBATCH --ntasks-per-node=1
+#
+# Memory per node: memory required per allocated CPU (or core) - amount of memory (in bytes)
+#SBATCH --mem=1G
+##########################################################
+
+#
+#
+#
+
+##### Check successful and failed SRA run accessions
+mkdir -p $SRA_DIR/samples 2> /dev/null
+
+cat $SRA_LIST >> $SRA_DIR/samples/sra_list.txt 2> /dev/null
+cat $SRA_DIR/samples/sra_list.txt | sort | uniq > $SRA_DIR/samples/sra_list.txt.tmp
+mv $SRA_DIR/samples/sra_list.txt.tmp $SRA_DIR/samples/sra_list.txt
+
+ls $SRA_DIR/*fastq* | rev | awk -F\/ '{print $1}' | rev | awk -F"_" '{print $1}' | awk -F"." '{print $1}' | sort | uniq > $SRA_DIR/samples/sra_download_convert_successful.txt
+
+# Compare original list and list with downloaded SRA files (just in case any sample failed during download and convertion)
+comm -23 <(cat $SRA_DIR/samples/sra_list.txt | sort | uniq) <(cat $SRA_DIR/samples/sra_download_convert_successful.txt | sort | uniq) > $SRA_DIR/samples/sra_download_convert_failed.txt
+wait
+echo
+
+rm -r $TMP 2> /dev/null
+rm -r $SRA_LOG/sraFinalList.txt 2> /dev/null
+
+wait
